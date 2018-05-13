@@ -1,0 +1,112 @@
+/*在程序中定义以下几个类，使它们具有以下特征：
+⑴定义Shape类，其中包括
+①int型私有成员color代表颜色。
+②公有成员函数printArea，用于在屏幕上显示字符串“条件不足，现在还不知道形状的面积”。
+③构造函数，用于为color赋初值。
+
+⑵定义Shape的公有派生类Triangle (三角形类 )，其中新增
+① double型私有成员bottom代表底。
+② double 型私有成员height代表高。
+③ 构造函数，用于初始化成员。
+④ 公有成员函数printArea，用于计算三角形面积，并将结果显示在屏幕上。
+
+⑶定义Shape的公有派生类Square (正方形类)，其中新增
+① double型私有成员length代表边长。
+② 构造函数，用于初始化成员。
+③ 公有成员函数printArea，用于计算正方形面积，并将结果显示在屏幕上。
+
+⑷定义Shape的公有派生类Circle (圆类 )，其中新增
+① double型私有成员radius代表半径。
+② 构造函数，用于初始化成员。
+③ 公有成员函数printArea，用于计算圆面积，并将结果显示在屏幕上。
+
+⑸定义Shape的公有派生类Rectangle (矩形类)，其中新增
+① double型私有成员length代表长。
+② double型私有成员width代表宽。
+③ 构造函数，用于初始化成员。
+④ 公有成员函数printArea，用于计算矩形面积，并将结果显示在屏幕上。
+
+⑹定义main函数
+① 通过派生类对象调用printArea()函数，计算不同形状的面积
+② 通过派生类对象的引用调用printArea()函数，计算不同形状的面积。
+③ 通过指向派生类对象的指针调用printArea()函数，计算不同形状的面积。
+*/
+
+#include<iostream>
+#include<stdlib.h>
+using namespace std;
+class Shape
+{
+public:
+	void printArea(){cout<<"The requirment is not enough. So, the area is unware.";}
+	Shape(int color){this->color=color;} 
+private:
+	int color;
+};
+
+class Triangle: public Shape
+{public:
+Triangle(int col,double bot,double hei):Shape(col)
+{
+	bottom=bot;
+	height=hei;
+}
+void printArea(){cout<<"The Triangle's area is:"<<bottom*height*(1/2.0)<<endl;}
+private:
+	double bottom,height;
+};
+
+class Square: public Shape
+{
+public:
+	Square(double len,int col):Shape(col)
+	{
+		length=len;
+	}
+	void printArea(){cout<<"The Square's area is:"<<length*length<<endl;}
+
+private:
+	double length;
+};
+
+class Circle:public Shape
+{
+public:
+    Circle(double rad,int col):Shape(col)
+	{
+		radius=rad;
+	}
+	void printArea(){cout<<"The Circle's area is:"<<3.14*radius*radius<<endl;}
+private:
+	double radius;
+};
+
+class Rectangle: public Shape
+{
+public:
+	Rectangle(double len,double wid,int col):Shape(col)
+	{
+		length=len;
+		width=wid;
+	}
+	void printArea(){cout<<"The Square's area is:"<<length*width<<endl;}
+
+private:
+	double length;
+	double width;
+};
+
+int main()
+{
+	Triangle t1(1,2,2);
+	t1.printArea();
+	Square s1(2,1);
+	s1.printArea();
+	Circle c1(1,1);
+	c1.printArea();
+	Rectangle r1(1,2,1);
+	r1.printArea();
+
+	system("pause");
+	return 0;
+}
