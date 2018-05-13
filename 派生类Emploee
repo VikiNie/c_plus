@@ -1,0 +1,122 @@
+/*在程序中定义以下几个类，使它们具有以下特征：
+⑴定义职员类Employee，其中包括
+①No：私有成员，字符串型，代表工号；
+②Name：私有成员，字符串型，代表姓名;
+③构造函数，用于初始化成员；
+④double getPay()：公有成员函数，用于返回员工工资，所有员工暂定支付1000元；
+⑤string getName()：公有成员函数，用于获取员工姓名；
+⑥string getNo()：公有成员函数，用于获取员工工号。
+
+⑵定义Employee的公有派生类CommissionWorker (销售员类 )，这类员工的收入是一小部分底薪加上销售额的一定的百分比计算而来。其中新增
+① salary：私有成员，double型，代表底薪；
+② commission：私有成员变量，double型，代表提成率(取值范围：[0,1])；
+③ sellValue：私有成员变量，double型，代表销售额 ；
+④ 构造函数，用于初始化成员；
+⑤ double getPay()：公有成员函数，用于计算员工工资；
+⑥ 若干个用于设置、读取数据成员值的函数。
+
+⑶定义Employee的公有派生类HourlyWorker (小时工类)，这类员工的收入以小时计算。若超过40小时部分的报酬是平时的1.5倍。其中新增
+① wages：私有成员，double型，代表每小时工资； 
+② hours：私有成员，double型，代表一周的工作时间（单位：小时）；
+③ 构造函数，用于初始化成员；
+④ double getPay()：公有成员函数，用于计算员工工资；
+⑤ 若干个用于设置、读取数据成员值的函数。
+
+⑷定义Employee的公有派生类PieceWorker (计件工类)，这类员工的的收入取决于他生产的工件数量。其中新增
+① wages：私有成员，double型，代表每件报酬 ；
+② quantity：私有成员变量，int型，代表件数；
+③ 构造函数，用于初始化成员；
+④ double getPay()：公有成员函数，用于计算员工工资；
+⑤ 若干个用于设置、读取数据成员值的函数。
+
+⑸定义main函数
+① 通过派生类对象调用getPay()函数，计算不同工种的员工应得到多少薪水。
+② 通过指向派生类对象的指针调用getPay()函数，计算不同工种的员工应得到多少薪水。
+*/
+
+#include<iostream>
+#include<string>
+#include<stdlib.h>
+using namespace std;
+class Emploee
+{
+public:
+	Emploee(string n0,string name){this->no=no; this->name=name; }
+	double getPay(double i=1000){return i;}
+	string getName(){ return name;}
+	string getNo(){return no;}
+private:
+	string no,name;
+};
+
+class CommissionWorker: public Emploee
+{
+public:
+	CommissionWorker(string n,string nam,double sal,double com,double sel): Emploee(n,nam)
+	{
+		salary=sal;
+		commission=com;
+		sellValue=sel;
+	}
+	double getsalary(){return salary;}
+	double getcommission(){return commission;}
+	double getsellValue(){return sellValue; }
+	double getPay(){return salary*(commission+1);}
+
+private:
+	double salary,commission,sellValue;
+};
+
+class HourlyWorker:public Emploee
+{
+public:
+	HourlyWorker(string n,string nam,double wag,double hou):Emploee(n,nam)
+	{
+		wages=wag;
+		hours=hou;
+	}
+	double getPay(){return wages*hours;}
+	double getwages(){return wages;}
+	double gethours(){return hours;}
+private:
+	double wages,hours;
+};
+
+class PieceWorker:public Emploee
+{
+public:
+	PieceWorker(string n,string nam,double wag,int quan):Emploee(n,nam)
+	{
+		wages=wag;
+		quantity=quan;
+	}
+	double getPay(){return wages*quantity;}
+	double getwages(){return wages;}
+	int getquantity(){return quantity;}
+private:
+	double wages;
+	int quantity;
+};
+
+int main()
+{
+	CommissionWorker c1("01","wang",1000.0,0.6,500.0),*c;
+	c=&c1;
+	cout<<"commission's salary is:"<<(*c).getsalary()<<endl;
+	cout<<"commission's commission is:"<<(*c).getcommission()<<endl;
+	cout<<"commission's sellValue is:"<<(*c).getsellValue()<<endl;
+	cout<<"commission's money is:"<<(*c).getPay()<<endl<<endl<<endl;
+
+	HourlyWorker h1("02","meng",12.0,40);
+	cout<<"hourlyworker's wages is:"<<h1.getwages()<<endl;
+	cout<<"hourlyworker's hours is:"<<h1.gethours()<<endl;
+	cout<<"hourlyworker's money is:"<<h1.getPay()<<endl<<endl<<endl;
+
+	PieceWorker p1("03","nie",40.0,1200);
+	cout<<"PieceWorker's wages is:"<<p1.getwages()<<endl;
+	cout<<"PieceWorker's quantity is:"<<p1.getquantity()<<endl;
+	cout<<"PieceWorker's money is:"<<p1.getPay()<<endl<<endl<<endl;
+
+	system("pause");
+	return 0;
+}
